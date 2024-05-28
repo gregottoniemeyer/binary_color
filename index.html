@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Grid</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <style>
+        body { display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #333; }
+        canvas { border: 1px solid #ccc; }
+    </style>
+</head>
+<body>
+    <script>
+        let squareSize = 100;
+        let rows = 4;
+        let cols = 8;
+        let squares = [];
+        let redFactor = 128;
+        let greenFactor = 128;
+        let blueFactor = 128;
+        let alphaFactor = 128;
+        let auto = false;
+
+        function setup() {
+            createCanvas(cols * squareSize, rows * squareSize);
+            initializeGrid();
+            frameRate(30);
+        }
+
+        function draw() {
+            // Draw background
+            background(0);
+            
+            // Draw color overlay with alpha
+            fill(redFactor, greenFactor, blueFactor, alphaFactor);
+            rect(0, 0, width, height);
+            
+            // Draw circles
+            for (let i = 0; i < rows; i++) {
+                for (let j = 0; j < cols; j++) {
+                    let circleColor = squares[i][j] == 0 ? color(0) : color(255);
+                    fill(circleColor);
+                    noStroke();
+                    ellipse(j * squareSize + squareSize / 2, i * squareSize + squareSize / 2, squareSize / 3, squareSize / 3);
+                }
+            }
+            
+            if (auto) {
+                generateRandomSquares();
+                setColorFactors();
+                frameRate(1);
+            } else {
+                frameRate(30);
+            }
+        }
+
+        function initializeGrid() {
+            for (let i = 0; i < rows; i++) {
+                squares[i] = [];
+                for (let j = 0; j < cols; j++) {
+                    squares[i][j] = 1; // Start with white circles
+                }
+            }
+            setColorFactors();
+        }
+
+        function mousePressed() {
+            let colIndex = Math.floor(mouseX / squareSize);
+            let rowIndex = Math.floor(mouseY / squareSize);
+            
+            if (colIndex >= 0 && colIndex < cols && rowIndex >= 0 && rowIndex < rows) {
+                squares[rowIndex][colIndex] = 1 - squares[rowIndex][colIndex];
+                setColorFactors();
+            }
+        }
+
+        function keyPressed() {
+            if (key === 'n' || key === 'N') {
+                generateRandomSquares();
+                setColorFactors();
+            } else if (key === 'a' || key === 'A') {
+                auto = !auto;
+            } else if (key === 's' || key === 'S') {
+                saveCanvas('colors', 'png');
+            }
+        }
+
+        function generateRandomSquares() {
+            for (let i = 0; i < rows; i++) {
+                for (let j = 0; j < cols; j++) {
+                    squares[i][j] = Math.floor(random(2));
+                }
+            }
+        }
+
+        function setColorFactors() {
+            let redString = squares[0].join('');
+            let greenString = squares[1].join('');
+            let blueString = squares[2].join('');
+            let alphaString = squares[3].join('');
+            
+            redFactor = parseInt(redString, 2);
+            greenFactor = parseInt(greenString, 2);
+            blueFactor = parseInt(blueString, 2);
+            alphaFactor = parseInt(alphaString, 2);
+        }
+    </script>
+</body>
+</html>
