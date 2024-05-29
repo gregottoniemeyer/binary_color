@@ -18,6 +18,7 @@
         }
         canvas {
             display: block;
+            border: none; /* Ensure no border */
         }
     </style>
 </head>
@@ -34,7 +35,8 @@
         let auto = false;
 
         function setup() {
-            createCanvas(cols * squareSize, rows * squareSize);
+            let canvas = createCanvas(cols * squareSize, rows * squareSize);
+            canvas.parent(document.body); // Ensure the canvas is a child of the body element
             initializeGrid();
             frameRate(30);
         }
@@ -70,7 +72,7 @@
             for (let i = 0; i < rows; i++) {
                 squares[i] = [];
                 for (let j = 0; j < cols; j++) {
-                    squares[i][j] = 1;//1; start with all on //0; // Start with black circles, all off
+                    squares[i][j] = 1; // Start with all circles on
                 }
             }
             setColorFactors();
@@ -98,4 +100,24 @@
         }
 
         function generateRandomSquares() {
- 
+            for (let i = 0; i < rows; i++) {
+                for (let j = 0; j < cols; j++) {
+                    squares[i][j] = Math.floor(random(2));
+                }
+            }
+        }
+
+        function setColorFactors() {
+            let redString = squares[0].join('');
+            let greenString = squares[1].join('');
+            let blueString = squares[2].join('');
+            let alphaString = squares[3].join('');
+            
+            redFactor = parseInt(redString, 2);
+            greenFactor = parseInt(greenString, 2);
+            blueFactor = parseInt(blueString, 2);
+            alphaFactor = parseInt(alphaString, 2);
+        }
+    </script>
+</body>
+</html>
