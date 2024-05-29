@@ -6,8 +6,19 @@
     <title>Color Code Console</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <style>
-        body { display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #333; }
-        canvas { border: 1px solid #ccc; }
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #333;
+        }
+        canvas {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -87,24 +98,4 @@
         }
 
         function generateRandomSquares() {
-            for (let i = 0; i < rows; i++) {
-                for (let j = 0; j < cols; j++) {
-                    squares[i][j] = Math.floor(random(2));
-                }
-            }
-        }
-
-        function setColorFactors() {
-            let redString = squares[0].join('');
-            let greenString = squares[1].join('');
-            let blueString = squares[2].join('');
-            let alphaString = squares[3].join('');
-            
-            redFactor = parseInt(redString, 2);
-            greenFactor = parseInt(greenString, 2);
-            blueFactor = parseInt(blueString, 2);
-            alphaFactor = parseInt(alphaString, 2);
-        }
-    </script>
-</body>
-</html>
+ 
