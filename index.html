@@ -60,7 +60,7 @@
             }
             
             if (auto) {
-                generateRandomSquares();
+                flipRandomBit();
                 setColorFactors();
                 frameRate(1);
             } else {
@@ -105,6 +105,12 @@
                     squares[i][j] = Math.floor(random(2));
                 }
             }
+        }
+
+        function flipRandomBit() {
+            let rowIndex = Math.floor(random(rows));
+            let colIndex = Math.floor(random(cols));
+            squares[rowIndex][colIndex] = 1 - squares[rowIndex][colIndex];
         }
 
         function setColorFactors() {
