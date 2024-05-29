@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Grid</title>
+    <title>Color Code Console</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <style>
         body { display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #333; }
@@ -59,7 +59,7 @@
             for (let i = 0; i < rows; i++) {
                 squares[i] = [];
                 for (let j = 0; j < cols; j++) {
-                    squares[i][j] = 1; // Start with white circles
+                    squares[i][j] = 0; // Start with black circles, all off
                 }
             }
             setColorFactors();
